@@ -122,7 +122,8 @@ class setup {
     }
 
     /**
-     * A fresh token for the service user; any earlier one stops working.
+     * A fresh token for the service user. Earlier ones stay valid until
+     * pairing::connect withdraws them, once Vemhere has accepted this one.
      *
      * @return string
      */
