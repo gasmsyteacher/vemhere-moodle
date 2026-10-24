@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_vemhere';
-$plugin->version   = 2026102500;
+$plugin->version   = 2026102600;
 $plugin->requires  = 2023042400;   // Moodle 4.2.
 $plugin->maturity  = MATURITY_ALPHA;
-$plugin->release   = '0.1.0';
+$plugin->release   = '0.1.1';
 $plugin->dependencies = ['local_vemhere' => 2026102600];
