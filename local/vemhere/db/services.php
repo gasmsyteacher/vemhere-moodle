@@ -26,6 +26,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$functions = [
+    'local_vemhere_import' => [
+        'classname' => 'local_vemhere\\external\\import_category',
+        'description' => 'One category\'s courses, enrolments, managers and people, for Vemhere.',
+        'type' => 'read',
+        'capabilities' => 'moodle/course:viewparticipants, moodle/user:viewalldetails',
+    ],
+];
+
 $services = [
     'Vemhere' => [
         'shortname' => 'local_vemhere',
@@ -41,6 +50,7 @@ $services = [
             'enrol_manual_unenrol_users',
             'mod_assign_get_assignments',
             'core_grades_update_grades',
+            'local_vemhere_import',
         ],
         'restrictedusers' => 1,
         'enabled' => 1,

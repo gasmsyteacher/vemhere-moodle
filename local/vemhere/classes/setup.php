@@ -128,7 +128,7 @@ class setup {
      * @return string
      */
     public static function issue_token(): string {
-        global $CFG, $DB;
+        global $DB;
         $service = $DB->get_record('external_services', ['shortname' => self::SERVICE], '*', MUST_EXIST);
         $user = self::ensure_service_user();
         if (!$DB->record_exists('external_services_users',
@@ -139,12 +139,8 @@ class setup {
         // Earlier tokens stay valid until Vemhere accepts this one (pairing::connect),
         // so a failed or mistaken Connect never cuts a working link.
         $permanent = defined('EXTERNAL_TOKEN_PERMANENT') ? EXTERNAL_TOKEN_PERMANENT : 0;
-        if (class_exists('\\core_external\\util')) {
-            return \core_external\util::generate_token($permanent, $service, $user->id,
-                \context_system::instance(), 0, '');
-        }
-        require_once($CFG->libdir . '/externallib.php');     // Moodle 4.1.
-        return external_generate_token($permanent, $service, $user->id, \context_system::instance(), 0, '');
+        return \core_external\util::generate_token($permanent, $service, $user->id,
+            \context_system::instance(), 0, '');
     }
 
     /**

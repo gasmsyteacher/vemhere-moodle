@@ -8,10 +8,10 @@ registration numbers.
 
 | Plugin | For | Status |
 |---|---|---|
-| `local/vemhere` | The Moodle administrator: one install, one pairing key | 0.1.0, pairing |
+| `local/vemhere` | The Moodle administrator: one install, one pairing key | 0.2.0, pairing and import |
 | `mod/vemhere` | Teachers: the "Attendance (Vemhere)" activity | planned |
 
-## Install (Moodle 4.1 LTS or newer)
+## Install (Moodle 4.2 or newer)
 
 1. Site administration, Plugins, Install plugins: upload `local_vemhere.zip`.
 2. In Vemhere, an administrator opens Moodle and presses **Make a pairing key**.
