@@ -26,8 +26,9 @@ use core_external\external_value;
  * Make a course's roster what Vemhere says it is (MP3, V-D58).
  *
  * Everyone listed is enrolled through manual enrolments, with their role, active
- * or suspended as listed. A student enrolled by any method and not listed is
- * suspended: Vemhere decides who is in. A teacher not listed is left alone, so
+ * or suspended as listed. With complete (the default), a student enrolled by any
+ * method and not listed is suspended: Vemhere decides who is in. Without it,
+ * only the people listed change (one enrolment at a time). A teacher not listed is left alone, so
  * a Moodle manager's own staff are never locked out by mistake. People are
  * found by ID number first, then email.
  *
@@ -49,7 +50,10 @@ class set_roster extends external_api {
                 'email' => new external_value(PARAM_RAW, 'email', VALUE_DEFAULT, ''),
                 'role' => new external_value(PARAM_ALPHA, 'student or teacher'),
                 'active' => new external_value(PARAM_BOOL, 'active, or suspended'),
-            ])),
+            ]), 'the roster; empty suspends every student', VALUE_DEFAULT, []),
+            'complete' => new external_value(PARAM_BOOL,
+                'true: this is the whole roster, so students not listed are suspended; '
+                . 'false: apply only the people listed', VALUE_DEFAULT, true),
         ]);
     }
 
@@ -58,12 +62,13 @@ class set_roster extends external_api {
      *
      * @param int $courseid
      * @param array $members
+     * @param bool $complete
      * @return array
      */
-    public static function execute(int $courseid, array $members): array {
+    public static function execute(int $courseid, array $members = [], bool $complete = true): array {
         global $DB;
         $params = self::validate_parameters(self::execute_parameters(),
-            ['courseid' => $courseid, 'members' => $members]);
+            ['courseid' => $courseid, 'members' => $members, 'complete' => $complete]);
         $course = get_course($params['courseid']);
         $context = \context_course::instance($course->id);
         self::validate_context($context);
@@ -106,7 +111,7 @@ class set_roster extends external_api {
 
         // Students Vemhere did not list: suspended, by whichever method enrolled them.
         $studentroles = array_keys(get_archetype_roles('student'));
-        if ($studentroles) {
+        if ($params['complete'] && $studentroles) {
             [$rolesql, $roleparams] = $DB->get_in_or_equal($studentroles, SQL_PARAMS_NAMED);
             $sql = "SELECT ue.id, ue.userid, e.id AS enrolid, e.enrol
                       FROM {user_enrolments} ue
