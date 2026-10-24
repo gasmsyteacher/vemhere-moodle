@@ -61,13 +61,23 @@ class grades extends external_api {
         require_capability('moodle/grade:viewall', $context);
         require_capability('moodle/course:viewparticipants', $context);
 
-        $items = $DB->get_records_select('grade_items', "courseid = :c AND itemtype IN ('mod', 'manual')",
-            ['c' => $courseid], 'sortorder', 'id, itemname, itemtype, itemmodule, grademax, hidden');
+        $items = $DB->get_records_select(
+            'grade_items',
+            "courseid = :c AND itemtype IN ('mod', 'manual')",
+            ['c' => $courseid],
+            'sortorder',
+            'id, itemname, itemtype, itemmodule, grademax, hidden'
+        );
         $grades = [];
         if ($items) {
             [$insql, $params] = $DB->get_in_or_equal(array_keys($items), SQL_PARAMS_NAMED);
-            $rs = $DB->get_recordset_select('grade_grades', "itemid $insql AND finalgrade IS NOT NULL", $params,
-                '', 'id, itemid, userid, finalgrade, feedback');
+            $rs = $DB->get_recordset_select(
+                'grade_grades',
+                "itemid $insql AND finalgrade IS NOT NULL",
+                $params,
+                '',
+                'id, itemid, userid, finalgrade, feedback'
+            );
             foreach ($rs as $g) {
                 $grades[] = ['itemid' => (int) $g->itemid, 'userid' => (int) $g->userid,
                     'finalgrade' => (float) $g->finalgrade,
@@ -80,7 +90,9 @@ class grades extends external_api {
                FROM {user} u
                JOIN {user_enrolments} ue ON ue.userid = u.id
                JOIN {enrol} e ON e.id = ue.enrolid
-              WHERE e.courseid = :c AND u.deleted = 0", ['c' => $courseid]);
+              WHERE e.courseid = :c AND u.deleted = 0",
+            ['c' => $courseid]
+        );
 
         return [
             'items' => array_values(array_map(fn($i) => [

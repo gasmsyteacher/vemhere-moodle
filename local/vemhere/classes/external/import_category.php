@@ -59,15 +59,21 @@ class import_category extends external_api {
      */
     public static function execute(int $categoryid): array {
         global $DB;
-        ['categoryid' => $categoryid] = self::validate_parameters(self::execute_parameters(),
-            ['categoryid' => $categoryid]);
+        ['categoryid' => $categoryid] = self::validate_parameters(
+            self::execute_parameters(),
+            ['categoryid' => $categoryid]
+        );
         $context = \context_coursecat::instance($categoryid);
         self::validate_context($context);
         require_capability('moodle/course:viewparticipants', $context);
         require_capability('moodle/user:viewalldetails', $context);
 
-        $courses = $DB->get_records('course', ['category' => $categoryid], 'sortorder',
-            'id, shortname, fullname, idnumber, category, visible');
+        $courses = $DB->get_records(
+            'course',
+            ['category' => $categoryid],
+            'sortorder',
+            'id, shortname, fullname, idnumber, category, visible'
+        );
         $userids = [];
         $enrolments = [];
 
@@ -132,8 +138,15 @@ class import_category extends external_api {
         $people = [];
         if ($userids) {
             [$insql, $params] = $DB->get_in_or_equal(array_keys($userids), SQL_PARAMS_NAMED);
-            foreach ($DB->get_records_select('user', "id $insql AND deleted = 0", $params, 'id',
-                    'id, email, firstname, lastname, idnumber, suspended') as $u) {
+            foreach (
+                $DB->get_records_select(
+                    'user',
+                    "id $insql AND deleted = 0",
+                    $params,
+                    'id',
+                    'id, email, firstname, lastname, idnumber, suspended'
+                ) as $u
+            ) {
                 $people[] = ['id' => (int) $u->id, 'email' => (string) $u->email,
                     'firstname' => (string) $u->firstname, 'lastname' => (string) $u->lastname,
                     'idnumber' => (string) $u->idnumber, 'suspended' => (bool) $u->suspended];

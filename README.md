@@ -8,8 +8,8 @@ registration numbers.
 
 | Plugin | For | Status |
 |---|---|---|
-| `local/vemhere` | The Moodle administrator: one install, one pairing key | 0.6.0: pairing, import, rosters, courses, grades, attendance |
-| `mod/vemhere` | Teachers: the "Attendance (Vemhere)" activity, nothing to configure | 0.1.1 (course backup and restore) |
+| `local/vemhere` | The Moodle administrator: one install, one pairing key | 0.6.1: pairing, import, rosters, courses, grades, attendance |
+| `mod/vemhere` | Teachers: the "Attendance (Vemhere)" activity, nothing to configure | 0.1.2 (course backup and restore) |
 
 ## Install (Moodle 4.2 or newer)
 
@@ -25,6 +25,14 @@ Download both zips from the latest release:
 The plugin creates a `vemhere_service` user and a "Vemhere service" role holding only what
 Vemhere calls, switches web services and REST on, and gives Vemhere a token for its own service.
 Uninstalling tells Vemhere (so it stops syncing), then removes the token, the user and the role.
+
+## Checks
+
+```bash
+./ci-local.sh         # php -l, moodle-cs, PHPUnit for both plugins (needs the dev rig)
+```
+
+GitHub Actions are off on this account; these run locally before every release.
 
 ## Build a zip
 

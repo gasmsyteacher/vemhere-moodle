@@ -51,9 +51,13 @@ class set_roster extends external_api {
                 'role' => new external_value(PARAM_ALPHA, 'student or teacher'),
                 'active' => new external_value(PARAM_BOOL, 'active, or suspended'),
             ]), 'the roster; empty suspends every student', VALUE_DEFAULT, []),
-            'complete' => new external_value(PARAM_BOOL,
+            'complete' => new external_value(
+                PARAM_BOOL,
                 'true: this is the whole roster, so students not listed are suspended; '
-                . 'false: apply only the people listed', VALUE_DEFAULT, true),
+                . 'false: apply only the people listed',
+                VALUE_DEFAULT,
+                true
+            ),
         ]);
     }
 
@@ -67,8 +71,10 @@ class set_roster extends external_api {
      */
     public static function execute(int $courseid, array $members = [], bool $complete = true): array {
         global $DB;
-        $params = self::validate_parameters(self::execute_parameters(),
-            ['courseid' => $courseid, 'members' => $members, 'complete' => $complete]);
+        $params = self::validate_parameters(
+            self::execute_parameters(),
+            ['courseid' => $courseid, 'members' => $members, 'complete' => $complete]
+        );
         $course = get_course($params['courseid']);
         $context = \context_course::instance($course->id);
         self::validate_context($context);
@@ -145,7 +151,9 @@ class set_roster extends external_api {
         return new external_single_structure([
             'enrolled' => new external_value(PARAM_INT, 'listed and active'),
             'suspended' => new external_value(PARAM_INT, 'suspended: listed inactive, or a student not listed'),
-            'missing' => new external_multiple_structure(new external_value(PARAM_RAW, 'ID number or email with no Moodle account')),
+            'missing' => new external_multiple_structure(
+                new external_value(PARAM_RAW, 'ID number or email with no Moodle account')
+            ),
         ]);
     }
 }

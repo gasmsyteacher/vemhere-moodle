@@ -15,14 +15,13 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * The teacher's "Attendance (Vemhere)" activity: a grade column Vemhere fills, and a page that sends people to the course in Vemhere.
+ * The teacher's "Attendance (Vemhere)" activity: a grade column Vemhere fills,
+ * and a page that sends people to the course in Vemhere.
  *
  * @package    mod_vemhere
  * @copyright  2026 Virtual Minds Hub Enterprise
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * What the module supports.

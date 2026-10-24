@@ -22,8 +22,6 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * The structure of one Attendance (Vemhere) in a backup.
  */
@@ -34,8 +32,11 @@ class backup_vemhere_activity_structure_step extends backup_activity_structure_s
      * @return backup_nested_element
      */
     protected function define_structure() {
-        $vemhere = new backup_nested_element('vemhere', ['id'],
-            ['name', 'intro', 'introformat', 'grade', 'timecreated', 'timemodified']);
+        $vemhere = new backup_nested_element(
+            'vemhere',
+            ['id'],
+            ['name', 'intro', 'introformat', 'grade', 'timecreated', 'timemodified']
+        );
         $vemhere->set_source_table('vemhere', ['id' => backup::VAR_ACTIVITYID]);
         return $this->prepare_activity_structure($vemhere);
     }

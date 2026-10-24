@@ -33,8 +33,12 @@ class connect extends \moodleform {
      */
     protected function definition() {
         $form = $this->_form;
-        $form->addElement('textarea', 'pairingkey', get_string('pairingkey', 'local_vemhere'),
-            ['rows' => 3, 'cols' => 60, 'class' => 'text-monospace']);
+        $form->addElement(
+            'textarea',
+            'pairingkey',
+            get_string('pairingkey', 'local_vemhere'),
+            ['rows' => 3, 'cols' => 60, 'class' => 'text-monospace']
+        );
         $form->setType('pairingkey', PARAM_RAW_TRIMMED);
         $form->addRule('pairingkey', null, 'required', null, 'client');
         $form->addHelpButton('pairingkey', 'pairingkey', 'local_vemhere');

@@ -33,8 +33,10 @@ $PAGE->set_heading(format_string($course->fullname));
 echo $OUTPUT->header();
 $rows = [];
 foreach (get_all_instances_in_course('vemhere', $course) as $instance) {
-    $rows[] = [html_writer::link(new moodle_url('/mod/vemhere/view.php', ['id' => $instance->coursemodule]),
-        format_string($instance->name))];
+    $rows[] = [html_writer::link(
+        new moodle_url('/mod/vemhere/view.php', ['id' => $instance->coursemodule]),
+        format_string($instance->name)
+    )];
 }
 $table = new html_table();
 $table->head = [get_string('name')];

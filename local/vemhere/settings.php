@@ -25,6 +25,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 if ($hassiteconfig) {
-    $ADMIN->add('localplugins', new admin_externalpage('local_vemhere',
-        get_string('pluginname', 'local_vemhere'), new moodle_url('/local/vemhere/index.php')));
+    $ADMIN->add('localplugins', new admin_externalpage(
+        'local_vemhere',
+        get_string('pluginname', 'local_vemhere'),
+        new moodle_url('/local/vemhere/index.php')
+    ));
 }

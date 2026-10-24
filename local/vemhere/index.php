@@ -32,8 +32,12 @@ $form = new \local_vemhere\form\connect($url);
 if ($data = $form->get_data()) {
     try {
         $answer = \local_vemhere\pairing::connect($data->pairingkey);
-        redirect($url, get_string('connected', 'local_vemhere', s($answer['institution'] ?? '')),
-            null, \core\output\notification::NOTIFY_SUCCESS);
+        redirect(
+            $url,
+            get_string('connected', 'local_vemhere', s($answer['institution'] ?? '')),
+            null,
+            \core\output\notification::NOTIFY_SUCCESS
+        );
     } catch (moodle_exception $e) {
         redirect($url, $e->getMessage(), null, \core\output\notification::NOTIFY_ERROR);
     }
@@ -50,8 +54,11 @@ if ($pairedat) {
     ]), \core\output\notification::NOTIFY_SUCCESS, false);
     $missing = array_filter(explode(',', (string) get_config('local_vemhere', 'missing')));
     if ($missing) {
-        echo $OUTPUT->notification(get_string('status_missing', 'local_vemhere', s(implode(', ', $missing))),
-            \core\output\notification::NOTIFY_WARNING, false);
+        echo $OUTPUT->notification(
+            get_string('status_missing', 'local_vemhere', s(implode(', ', $missing))),
+            \core\output\notification::NOTIFY_WARNING,
+            false
+        );
     }
 } else {
     echo html_writer::tag('p', get_string('intro', 'local_vemhere'));

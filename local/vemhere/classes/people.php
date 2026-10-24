@@ -41,8 +41,15 @@ class people {
             }
         }
         if (trim($email) !== '') {
-            $found = $DB->get_records_select('user', 'deleted = 0 AND mnethostid = :host AND LOWER(email) = LOWER(:email)',
-                ['host' => $CFG->mnet_localhost_id, 'email' => trim($email)], '', 'id', 0, 2);
+            $found = $DB->get_records_select(
+                'user',
+                'deleted = 0 AND mnethostid = :host AND LOWER(email) = LOWER(:email)',
+                ['host' => $CFG->mnet_localhost_id, 'email' => trim($email)],
+                '',
+                'id',
+                0,
+                2
+            );
             if (count($found) === 1) {
                 return reset($found);
             }

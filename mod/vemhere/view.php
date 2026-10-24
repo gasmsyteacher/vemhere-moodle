@@ -55,11 +55,19 @@ if (!$summary || empty($summary['linked'])) {
     }
     $buttons = [];
     if ($teaches) {
-        $buttons[] = $OUTPUT->single_button(new moodle_url($summary['url']), get_string('openinvemhere', 'vemhere'), 'get',
-            ['type' => single_button::BUTTON_PRIMARY]);
+        $buttons[] = $OUTPUT->single_button(
+            new moodle_url($summary['url']),
+            get_string('openinvemhere', 'vemhere'),
+            'get',
+            ['type' => single_button::BUTTON_PRIMARY]
+        );
     } else {
-        $buttons[] = $OUTPUT->single_button(new moodle_url($summary['checkin_url']), get_string('checkin', 'vemhere'), 'get',
-            ['type' => single_button::BUTTON_PRIMARY]);
+        $buttons[] = $OUTPUT->single_button(
+            new moodle_url($summary['checkin_url']),
+            get_string('checkin', 'vemhere'),
+            'get',
+            ['type' => single_button::BUTTON_PRIMARY]
+        );
         $buttons[] = $OUTPUT->single_button(new moodle_url($summary['url']), get_string('myattendance', 'vemhere'), 'get');
     }
     echo html_writer::div(implode(' ', $buttons), 'd-flex gap-2');

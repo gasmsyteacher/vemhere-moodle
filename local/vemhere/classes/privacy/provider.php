@@ -16,21 +16,33 @@
 
 namespace local_vemhere\privacy;
 
+use core_privacy\local\metadata\collection;
+
 /**
- * The plugin stores no personal data. It sends Vemhere this site's address,
- * its name and a web-services token, never data about a person.
+ * The plugin stores nothing about a person in Moodle. Through its web
+ * services it gives the Vemhere institution this site is paired with the
+ * people of the courses Vemhere manages, their enrolments and their grades.
  *
  * @package    local_vemhere
  * @copyright  2026 Virtual Minds Hub Enterprise
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider implements \core_privacy\local\metadata\null_provider {
+class provider implements \core_privacy\local\metadata\provider {
     /**
-     * The language string that explains why.
+     * What leaves this site, and where to.
      *
-     * @return string
+     * @param collection $collection
+     * @return collection
      */
-    public static function get_reason(): string {
-        return 'privacy:metadata';
+    public static function get_metadata(collection $collection): collection {
+        $collection->add_external_location_link('vemhere', [
+            'firstname' => 'privacy:metadata:vemhere:firstname',
+            'lastname' => 'privacy:metadata:vemhere:lastname',
+            'email' => 'privacy:metadata:vemhere:email',
+            'idnumber' => 'privacy:metadata:vemhere:idnumber',
+            'enrolments' => 'privacy:metadata:vemhere:enrolments',
+            'grades' => 'privacy:metadata:vemhere:grades',
+        ], 'privacy:metadata:vemhere');
+        return $collection;
     }
 }

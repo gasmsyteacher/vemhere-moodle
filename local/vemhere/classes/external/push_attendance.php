@@ -62,8 +62,10 @@ class push_attendance extends external_api {
         self::validate_context($context);
         require_capability('moodle/grade:edit', $context);
 
-        if (!$DB->get_manager()->table_exists('vemhere')
-                || !($instance = $DB->get_record('vemhere', ['course' => $params['courseid']], '*', IGNORE_MULTIPLE))) {
+        if (
+            !$DB->get_manager()->table_exists('vemhere')
+                || !($instance = $DB->get_record('vemhere', ['course' => $params['courseid']], '*', IGNORE_MULTIPLE))
+        ) {
             return ['module' => false, 'written' => 0, 'missing' => []];
         }
         $rows = [];

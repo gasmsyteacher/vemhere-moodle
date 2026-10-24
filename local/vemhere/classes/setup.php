@@ -93,8 +93,11 @@ class setup {
         $context = \context_system::instance();
         $roleid = $DB->get_field('role', 'id', ['shortname' => self::ROLE]);
         if (!$roleid) {
-            $roleid = create_role(get_string('servicerole', 'local_vemhere'), self::ROLE,
-                get_string('serviceroledesc', 'local_vemhere'));
+            $roleid = create_role(
+                get_string('servicerole', 'local_vemhere'),
+                self::ROLE,
+                get_string('serviceroledesc', 'local_vemhere')
+            );
             set_role_contextlevels($roleid, [CONTEXT_SYSTEM]);
         }
         foreach (self::CAPABILITIES as $capability) {
@@ -137,16 +140,26 @@ class setup {
         global $DB;
         $service = $DB->get_record('external_services', ['shortname' => self::SERVICE], '*', MUST_EXIST);
         $user = self::ensure_service_user();
-        if (!$DB->record_exists('external_services_users',
-                ['externalserviceid' => $service->id, 'userid' => $user->id])) {
+        if (
+            !$DB->record_exists(
+                'external_services_users',
+                ['externalserviceid' => $service->id, 'userid' => $user->id]
+            )
+        ) {
             $DB->insert_record('external_services_users', (object) [
                 'externalserviceid' => $service->id, 'userid' => $user->id, 'timecreated' => time()]);
         }
         // Earlier tokens stay valid until Vemhere accepts this one (pairing::connect),
         // so a failed or mistaken Connect never cuts a working link.
         $permanent = defined('EXTERNAL_TOKEN_PERMANENT') ? EXTERNAL_TOKEN_PERMANENT : 0;
-        return \core_external\util::generate_token($permanent, $service, $user->id,
-            \context_system::instance(), 0, '');
+        return \core_external\util::generate_token(
+            $permanent,
+            $service,
+            $user->id,
+            \context_system::instance(),
+            0,
+            ''
+        );
     }
 
     /**

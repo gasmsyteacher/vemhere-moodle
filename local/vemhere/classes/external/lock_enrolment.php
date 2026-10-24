@@ -63,8 +63,11 @@ class lock_enrolment extends external_api {
             self::validate_context($context);
             require_capability('enrol/manual:enrol', $context);
             [$insql, $inparams] = $DB->get_in_or_equal(self::SELF_SERVE, SQL_PARAMS_NAMED);
-            $instances = $DB->get_records_select('enrol', "courseid = :courseid AND status = :on AND enrol $insql",
-                ['courseid' => $courseid, 'on' => ENROL_INSTANCE_ENABLED] + $inparams);
+            $instances = $DB->get_records_select(
+                'enrol',
+                "courseid = :courseid AND status = :on AND enrol $insql",
+                ['courseid' => $courseid, 'on' => ENROL_INSTANCE_ENABLED] + $inparams
+            );
             foreach ($instances as $instance) {
                 if ($plugin = enrol_get_plugin($instance->enrol)) {
                     $plugin->update_status($instance, ENROL_INSTANCE_DISABLED);
