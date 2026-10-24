@@ -90,7 +90,7 @@ class set_roster extends external_api {
         $enrolled = 0;
         $suspended = 0;
         foreach ($params['members'] as $m) {
-            $user = self::find_user($m['idnumber'], $m['email']);
+            $user = \local_vemhere\people::find($m['idnumber'], $m['email']);
             if (!$user) {
                 $missing[] = $m['idnumber'] !== '' ? $m['idnumber'] : $m['email'];
                 continue;
@@ -134,32 +134,6 @@ class set_roster extends external_api {
             }
         }
         return ['enrolled' => $enrolled, 'suspended' => $suspended, 'missing' => $missing];
-    }
-
-    /**
-     * A live account by ID number, else by email; none when either is ambiguous.
-     *
-     * @param string $idnumber
-     * @param string $email
-     * @return \stdClass|null
-     */
-    private static function find_user(string $idnumber, string $email): ?\stdClass {
-        global $DB, $CFG;
-        $base = ['deleted' => 0, 'mnethostid' => $CFG->mnet_localhost_id];
-        if (trim($idnumber) !== '') {
-            $found = $DB->get_records('user', $base + ['idnumber' => trim($idnumber)], '', 'id', 0, 2);
-            if (count($found) === 1) {
-                return reset($found);
-            }
-        }
-        if (trim($email) !== '') {
-            $found = $DB->get_records_select('user', 'deleted = 0 AND mnethostid = :host AND LOWER(email) = LOWER(:email)',
-                ['host' => $CFG->mnet_localhost_id, 'email' => trim($email)], '', 'id', 0, 2);
-            if (count($found) === 1) {
-                return reset($found);
-            }
-        }
-        return null;
     }
 
     /**

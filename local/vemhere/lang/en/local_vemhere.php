@@ -24,6 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['cachedef_summary'] = 'What Vemhere says about a course, for a minute';
 $string['badkey'] = 'This is not a Vemhere pairing key. Copy it again from Vemhere.';
 $string['connect'] = 'Connect';
 $string['connected'] = 'Connected to {$a} on Vemhere.';

@@ -51,6 +51,12 @@ $functions = [
         'type' => 'read',
         'capabilities' => 'moodle/grade:viewall, moodle/course:viewparticipants',
     ],
+    'local_vemhere_push_attendance' => [
+        'classname' => 'local_vemhere\\external\\push_attendance',
+        'description' => 'Write attendance rates into the course\'s Attendance (Vemhere) activity.',
+        'type' => 'write',
+        'capabilities' => 'moodle/grade:edit',
+    ],
     'local_vemhere_lock_enrolment' => [
         'classname' => 'local_vemhere\\external\\lock_enrolment',
         'description' => 'Switch self-enrolment off on courses Vemhere manages.',
@@ -79,6 +85,7 @@ $services = [
             'local_vemhere_lock_enrolment',
             'local_vemhere_create_course',
             'local_vemhere_grades',
+            'local_vemhere_push_attendance',
         ],
         'restrictedusers' => 1,
         'enabled' => 1,

@@ -8,12 +8,12 @@ registration numbers.
 
 | Plugin | For | Status |
 |---|---|---|
-| `local/vemhere` | The Moodle administrator: one install, one pairing key | 0.5.0, pairing, import, rosters, courses, grades |
-| `mod/vemhere` | Teachers: the "Attendance (Vemhere)" activity | planned |
+| `local/vemhere` | The Moodle administrator: one install, one pairing key | 0.6.0: pairing, import, rosters, courses, grades, attendance |
+| `mod/vemhere` | Teachers: the "Attendance (Vemhere)" activity, nothing to configure | 0.1.0 |
 
 ## Install (Moodle 4.2 or newer)
 
-1. Site administration, Plugins, Install plugins: upload `local_vemhere.zip`.
+1. Site administration, Plugins, Install plugins: upload `local_vemhere.zip`, then `mod_vemhere.zip`.
 2. In Vemhere, an administrator opens Moodle and presses **Make a pairing key**.
 3. In Moodle: Site administration, Plugins, Local plugins, Vemhere. Paste the key, press Connect.
 
@@ -24,7 +24,7 @@ Uninstalling tells Vemhere (so it stops syncing), then removes the token, the us
 ## Build a zip
 
 ```bash
-./build.sh            # writes dist/local_vemhere.zip
+./build.sh            # writes dist/local_vemhere.zip and dist/mod_vemhere.zip
 ```
 
 ## Licence

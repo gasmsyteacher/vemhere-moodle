@@ -3,6 +3,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 mkdir -p dist
-rm -f dist/local_vemhere.zip
+rm -f dist/local_vemhere.zip dist/mod_vemhere.zip
 (cd local && zip -qr ../dist/local_vemhere.zip vemhere -x '*/.*')
-echo "dist/local_vemhere.zip"
+(cd mod && zip -qr ../dist/mod_vemhere.zip vemhere -x '*/.*')
+ls dist/*.zip
