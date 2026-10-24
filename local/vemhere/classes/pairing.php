@@ -48,6 +48,41 @@ class pairing {
     }
 
     /**
+     * Tell Vemhere this plugin is going away, signed with the token Vemhere
+     * holds (revoked right after). Best effort: an uninstall never waits on it.
+     */
+    public static function notify_unpair(): void {
+        global $CFG, $DB;
+        require_once($CFG->libdir . '/filelib.php');
+        $door = get_config('local_vemhere', 'door');
+        $service = $DB->get_record('external_services', ['shortname' => setup::SERVICE]);
+        $userid = $DB->get_field('user', 'id', ['username' => setup::USERNAME, 'deleted' => 0]);
+        if (!$door || !$service || !$userid) {
+            return;
+        }
+        $token = $DB->get_field_sql('SELECT token FROM {external_tokens}
+                                      WHERE userid = ? AND externalserviceid = ?
+                                   ORDER BY timecreated DESC', [$userid, $service->id], IGNORE_MULTIPLE);
+        if (!$token) {
+            return;
+        }
+        $body = json_encode(['site_url' => $CFG->wwwroot], JSON_UNESCAPED_SLASHES);
+        $timestamp = time();
+        try {
+            $curl = new \curl();
+            $curl->setHeader([
+                'Content-Type: application/json',
+                'X-Vem-Action: unpair',
+                'X-Vem-Timestamp: ' . $timestamp,
+                'X-Vem-Signature: ' . hash_hmac('sha256', $timestamp . '.' . $body, $token),
+            ]);
+            $curl->post($door, $body, ['CURLOPT_TIMEOUT' => 10, 'CURLOPT_FOLLOWLOCATION' => false]);
+        } catch (\Throwable $e) {
+            debugging('Vemhere did not hear about the uninstall: ' . $e->getMessage(), DEBUG_DEVELOPER);
+        }
+    }
+
+    /**
      * Pair with the Vemhere institution the key belongs to.
      *
      * @param string $key

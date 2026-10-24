@@ -179,6 +179,7 @@ class setup {
     public static function remove_everything(): void {
         global $CFG, $DB;
         require_once($CFG->dirroot . '/user/lib.php');
+        pairing::notify_unpair();
         self::revoke_tokens();
         if ($user = $DB->get_record('user', ['username' => self::USERNAME, 'deleted' => 0])) {
             delete_user($user);

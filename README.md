@@ -8,7 +8,7 @@ registration numbers.
 
 | Plugin | For | Status |
 |---|---|---|
-| `local/vemhere` | The Moodle administrator: one install, one pairing key | 0.3.1, pairing, import, rosters |
+| `local/vemhere` | The Moodle administrator: one install, one pairing key | 0.3.2, pairing, import, rosters |
 | `mod/vemhere` | Teachers: the "Attendance (Vemhere)" activity | planned |
 
 ## Install (Moodle 4.2 or newer)
@@ -19,7 +19,7 @@ registration numbers.
 
 The plugin creates a `vemhere_service` user and a "Vemhere service" role holding only what
 Vemhere calls, switches web services and REST on, and gives Vemhere a token for its own service.
-Uninstalling removes the token, the user and the role.
+Uninstalling tells Vemhere (so it stops syncing), then removes the token, the user and the role.
 
 ## Build a zip
 
