@@ -32,6 +32,6 @@ function xmldb_local_vemhere_upgrade($oldversion) {
     // Every release may give the service role a capability its new functions
     // check; setting the role up again is idempotent.
     \local_vemhere\setup::ensure_service_user();
-    upgrade_plugin_savepoint(true, 2026102403, 'local', 'vemhere');
+    upgrade_plugin_savepoint(true, 2026102500, 'local', 'vemhere');
     return true;
 }

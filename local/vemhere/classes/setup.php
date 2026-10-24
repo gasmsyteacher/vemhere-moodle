@@ -53,6 +53,7 @@ class setup {
         'enrol/self:config',
         'enrol/guest:config',
         'moodle/course:enrolconfig',
+        'moodle/course:create',
         'moodle/grade:edit',
         'moodle/grade:manage',
         'mod/assign:view',

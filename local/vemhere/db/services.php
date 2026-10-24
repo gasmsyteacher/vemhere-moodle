@@ -39,6 +39,12 @@ $functions = [
         'type' => 'write',
         'capabilities' => 'enrol/manual:enrol, enrol/manual:unenrol',
     ],
+    'local_vemhere_create_course' => [
+        'classname' => 'local_vemhere\\external\\create_course',
+        'description' => 'Create a course a head of department made in Vemhere, hidden, self-enrolment off.',
+        'type' => 'write',
+        'capabilities' => 'moodle/course:create',
+    ],
     'local_vemhere_lock_enrolment' => [
         'classname' => 'local_vemhere\\external\\lock_enrolment',
         'description' => 'Switch self-enrolment off on courses Vemhere manages.',
@@ -65,6 +71,7 @@ $services = [
             'local_vemhere_import',
             'local_vemhere_set_roster',
             'local_vemhere_lock_enrolment',
+            'local_vemhere_create_course',
         ],
         'restrictedusers' => 1,
         'enabled' => 1,
