@@ -56,6 +56,7 @@ class setup {
         'moodle/course:create',
         'moodle/grade:edit',
         'moodle/grade:manage',
+        'moodle/grade:viewall',
         'mod/assign:view',
     ];
 

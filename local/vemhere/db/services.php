@@ -45,6 +45,12 @@ $functions = [
         'type' => 'write',
         'capabilities' => 'moodle/course:create',
     ],
+    'local_vemhere_grades' => [
+        'classname' => 'local_vemhere\\external\\grades',
+        'description' => 'A course\'s grade items, grades and enrolled people, for Vemhere\'s gradebook.',
+        'type' => 'read',
+        'capabilities' => 'moodle/grade:viewall, moodle/course:viewparticipants',
+    ],
     'local_vemhere_lock_enrolment' => [
         'classname' => 'local_vemhere\\external\\lock_enrolment',
         'description' => 'Switch self-enrolment off on courses Vemhere manages.',
@@ -72,6 +78,7 @@ $services = [
             'local_vemhere_set_roster',
             'local_vemhere_lock_enrolment',
             'local_vemhere_create_course',
+            'local_vemhere_grades',
         ],
         'restrictedusers' => 1,
         'enabled' => 1,

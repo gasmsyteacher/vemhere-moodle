@@ -8,7 +8,7 @@ registration numbers.
 
 | Plugin | For | Status |
 |---|---|---|
-| `local/vemhere` | The Moodle administrator: one install, one pairing key | 0.4.0, pairing, import, rosters, course creation |
+| `local/vemhere` | The Moodle administrator: one install, one pairing key | 0.5.0, pairing, import, rosters, courses, grades |
 | `mod/vemhere` | Teachers: the "Attendance (Vemhere)" activity | planned |
 
 ## Install (Moodle 4.2 or newer)
