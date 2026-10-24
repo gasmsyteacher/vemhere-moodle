@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_vemhere';
-$plugin->version   = 2026102400;
+$plugin->version   = 2026102401;
 $plugin->requires  = 2023042400;   // Moodle 4.2: core_external.
 $plugin->maturity  = MATURITY_ALPHA;
-$plugin->release   = '0.2.0';
+$plugin->release   = '0.3.0';

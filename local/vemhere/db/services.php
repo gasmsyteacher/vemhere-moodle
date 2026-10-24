@@ -33,6 +33,18 @@ $functions = [
         'type' => 'read',
         'capabilities' => 'moodle/course:viewparticipants, moodle/user:viewalldetails',
     ],
+    'local_vemhere_set_roster' => [
+        'classname' => 'local_vemhere\\external\\set_roster',
+        'description' => 'Make a course\'s roster what Vemhere says it is.',
+        'type' => 'write',
+        'capabilities' => 'enrol/manual:enrol, enrol/manual:unenrol',
+    ],
+    'local_vemhere_lock_enrolment' => [
+        'classname' => 'local_vemhere\\external\\lock_enrolment',
+        'description' => 'Switch self-enrolment off on courses Vemhere manages.',
+        'type' => 'write',
+        'capabilities' => 'enrol/manual:enrol',
+    ],
 ];
 
 $services = [
@@ -51,6 +63,8 @@ $services = [
             'mod_assign_get_assignments',
             'core_grades_update_grades',
             'local_vemhere_import',
+            'local_vemhere_set_roster',
+            'local_vemhere_lock_enrolment',
         ],
         'restrictedusers' => 1,
         'enabled' => 1,
